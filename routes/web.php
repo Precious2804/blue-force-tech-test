@@ -35,6 +35,11 @@ Route::group(['middleware' => ['auth']], function () {
 Route::group(['middleware' => ['is_admin']], function () {
     Route::get('admin.dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin.user_details', [AdminController::class, 'user_details'])->name('user_details');
+    Route::get('admin.appoint_details', [AdminController::class, 'appoint_details'])->name('appoint_details');
     Route::post('edit_user', [AdminController::class, 'edit_user'])->name('edit_user');
     Route::get('delete_user', [AdminController::class, 'delete_user'])->name('delete_user');
+    Route::get('admin.all_appointments', [AdminController::class, 'all_appointments'])->name('all_appointments');
+    Route::get('approve', [AdminController::class, 'approve'])->name('approve');
+    Route::get('cancel', [AdminController::class, 'cancel'])->name('cancel');
+    Route::get('delete', [AdminController::class, 'delete'])->name('delete');
 });

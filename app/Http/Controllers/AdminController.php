@@ -36,4 +36,37 @@ class AdminController extends Controller
 
         return redirect()->route('admin.dashboard')->with('deleted', "User was removed successfully");
     }
+    public function all_appointments()
+    {
+        $data = ['data' => Appointments::paginate(10)];
+        return view('admin.all_appointments')->with($data);
+    }
+    public function appoint_details(Request $request)
+    {
+        $data = ['data' => Appointments::where('app_id', $request->appoint)->first()];
+        return view('admin.appoint_details')->with($data);
+    }
+    public function approve(Request $request)
+    {
+        $data = Appointments::where('app_id', $request->app_detail)->first();
+        $data->update([
+            'status' => "Approved"
+        ]);
+        return back()->with('approved', "Appointment schedule has been Successfully Approved");
+    }
+    public function cancel(Request $request)
+    {
+        $data = Appointments::where('app_id', $request->app_detail)->first();
+        $data->update([
+            'status' => "Cancelled"
+        ]);
+        return back()->with('cancel', "Appointment schedule was not approved");
+    }
+    public function delete(Request $request)
+    {
+        $data = Appointments::where('app_id', $request->app_detail)->first();
+        $data->delete();
+
+        return redirect()->route('all_appointments')->with('deleted', "Appointment was Deleted Succesfully");
+    }
 }
