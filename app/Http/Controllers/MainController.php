@@ -72,10 +72,10 @@ class MainController extends Controller
         $user = ['loggedUser' => User::where('user_id', Auth::user()->user_id)->first()];
         return view('/book_appointment')->with($user);
     }
-    public function all_appointments()
+    public function all_appoints()
     {
         $data = ['data'=>Appointments::where('user_id', Auth::user()->user_id)->paginate(5)];
-        return view('/all_appointments')->with($data);
+        return view('/all_appoints')->with($data);
     }
 
     public function logout()
@@ -107,6 +107,6 @@ class MainController extends Controller
             'reschedule' => $req->reschedule,
         ]);
 
-        return back()->with('done', "Your appointment was sent successfully");
+        return back()->with('done', "Your appointment Request was sent successfully");
     }
 }

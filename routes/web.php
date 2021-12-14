@@ -27,7 +27,7 @@ Route::post('/do_login', [MainController::class, 'do_login'])->name('do_login');
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/book_appointment', [MainController::class, 'book_appointment'])->name('book_appointment');
     Route::get('/logout', [MainController::class, 'logout'])->name('logout');
-    Route::get('/all_appointments', [MainController::class, 'all_appointments'])->name('all_appointments');
+    Route::get('/all_appoints', [MainController::class, 'all_appoints'])->name('all_appoints');
     Route::post('/book_now', [MainController::class, 'book_now'])->name('book_now');
 });
 

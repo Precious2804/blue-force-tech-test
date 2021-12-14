@@ -26,8 +26,8 @@
                     <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                         <div class="d-flex justify-content-center">
                             <div style="margin-right: 10px;">
-                                <a href="{{route('all_appointments')}}">
-                                    <button class="btn btn-primary">All Appointments</button>
+                                <a href="{{route('all_appoints')}}">
+                                    <button class="btn btn-primary">All My Appointments</button>
                                 </a>
                             </div>
                             <div style="margin-left: 10px;">
