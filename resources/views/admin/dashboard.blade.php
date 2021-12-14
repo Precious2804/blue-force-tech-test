@@ -47,6 +47,11 @@
                                     {{Session::get('deleted')}}
                                 </div>
                                 @endif
+                                @if($data->isEmpty())
+                                <div class="alert alert-warning" style="text-align: center; color:black; font-weight:bolder">
+                                    <span>Sorry! NO data is avaliable for this table currently</span>
+                                </div>
+                                @else
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -77,6 +82,7 @@
                                     </tbody>
                                 </table>
                                 {!! $data->links() !!}
+                                @endif
                             </div>
                         </div>
                     </div>

@@ -42,6 +42,11 @@
                                 <h4>All your Listed Appointments</h4>
                             </div>
                             <div class="card-body">
+                                @if($data->isEmpty())
+                                <div class="alert alert-warning" style="text-align: center; color:black; font-weight:bolder">
+                                    <span>Sorry! NO data is avaliable for this table currently</span>
+                                </div>
+                                @else
                                 <table class="table">
                                     <thead>
                                         <tr>
@@ -76,6 +81,7 @@
                                     </tbody>
                                 </table>
                                 {!! $data->links() !!}
+                                @endif
                             </div>
                         </div>
                     </div>
