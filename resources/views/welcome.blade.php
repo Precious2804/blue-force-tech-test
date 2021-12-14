@@ -3,6 +3,7 @@
 
 
 <!-- Mirrored from www.radixtouch.com/templates/admin/otika/source/light2/auth-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 29 Oct 2021 19:27:02 GMT -->
+
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
@@ -30,7 +31,17 @@
                 <h4>Login</h4>
               </div>
               <div class="card-body">
-                <form method="POST" action="#" class="needs-validation" novalidate="">
+                @if(Session::get('info'))
+                <div class="alert alert-danger">
+                  {{Session::get('info')}}
+                </div>
+                @endif
+                @if(Session::get('info'))
+                <div class="alert alert-danger">
+                  {{Session::get('info')}}
+                </div>
+                @endif
+                <form method="POST" action="{{route('do_login')}}" class="needs-validation" novalidate="">
                   @csrf
                   <div class="form-group">
                     <label for="email">Email</label>
@@ -74,4 +85,12 @@
   </div>
   <!-- General JS Scripts -->
   <script src="assets/js/app.min.js"></script>
-  <!--
+  <!-- JS Libraies -->
+  <!-- Page Specific JS File -->
+  <!-- Template JS File -->
+  <script src="assets/js/scripts.js"></script>
+  <!-- Custom JS File -->
+  <script src="assets/js/custom.js"></script>
+</body>
+
+</html>

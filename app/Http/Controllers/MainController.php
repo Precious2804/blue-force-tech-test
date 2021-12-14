@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Traits\Generics;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
@@ -38,5 +39,30 @@ class MainController extends Controller
         ]);
 
         return back()->with('done', "Registration was Successfull");
+    }
+
+    public function do_login(Request $req)
+    {
+        $req->validate([
+            'email' => 'required|email',
+            'password' => 'required'
+        ]);
+        $user = User::where('email', $req->email)->first();
+        if (User::where('email', $req->email)->exists() == true) {
+
+            $credentials = ['email' => $req->email, 'password' => $req->password];
+            if (Auth::validate($credentials) == true) {
+                Auth::attempt($credentials, $req->remember_me == 'on' ? true : false);
+                if ($user['isAdmin'] == 1) {
+                    return redirect()->to(route('admin.dashboard'));
+                } else {
+                    return redirect()->to(route('book_appointment'));
+                }
+            } else {
+                return redirect()->back()->with('info', 'Incorrect password!, please check your credentials and try again.')->withInput($req->only('loginEmail'));
+            }
+        } else {
+            return redirect()->back()->with('infoEmail', 'Email address does not exist!, please check your credentials and try again.');
+        }
     }
 }

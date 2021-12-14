@@ -36,6 +36,7 @@
                                     {{Session::get('done')}}
                                 </div>
                                 @endif
+                                
                                 <form method="POST" action="{{route('do_register')}}">
                                     @csrf
                                     <div class="row">
