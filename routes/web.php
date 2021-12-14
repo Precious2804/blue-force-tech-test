@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 
@@ -30,3 +31,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/book_now', [MainController::class, 'book_now'])->name('book_now');
 });
 
+// AdminController routes
+Route::group(['middleware' => ['is_admin']], function () {
+    Route::get('admin.dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('admin.user_details', [AdminController::class, 'user_details'])->name('user_details');
+    Route::post('edit_user', [AdminController::class, 'edit_user'])->name('edit_user');
+    Route::get('delete_user', [AdminController::class, 'delete_user'])->name('delete_user');
+});

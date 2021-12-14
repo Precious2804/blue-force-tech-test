@@ -26,8 +26,8 @@
                     <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
                         <div class="d-flex justify-content-center">
                             <div style="margin-right: 10px;">
-                                <a href="{{route('book_appointment')}}">
-                                    <button class="btn btn-primary">Book an Appointment</button>
+                                <a href="">
+                                    <button class="btn btn-primary">All Appointments</button>
                                 </a>
                             </div>
                             <div style="margin-left: 10px;">
@@ -39,18 +39,23 @@
                         <br>
                         <div class="card">
                             <div class="card-header">
-                                <h4>All your Listed Appointments</h4>
+                                <h4>All Users on the platform</h4>
                             </div>
                             <div class="card-body">
+                                @if(Session::get('deleted'))
+                                <div class="alert alert-danger">
+                                    {{Session::get('deleted')}}
+                                </div>
+                                @endif
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th>S/N</th>
                                             <th>ID</th>
-                                            <th>Phone</th>
-                                            <th>Date</th>
-                                            <th>Time</th>
-                                            <th>Status</th>
+                                            <th>Firstname</th>
+                                            <th>Lastname</th>
+                                            <th>Email</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -60,17 +65,13 @@
                                         @foreach($data as $item)
                                         <tr>
                                             <td>{{$no++}}</td>
-                                            <td>{{$item->app_id}}</td>
-                                            <td>{{$item->phone}}</td>
-                                            <td>{{$item->date}}</td>
-                                            <td>{{$item->time}}</td>
-                                            @if($item->status == "Pending")
-                                            <td class="text-warning">{{$item->status}}</td>
-                                            @elseif($item->status == "Cancelled")
-                                            <td class="text-danger">{{$item->status}}</td>
-                                            @else
-                                            <td class="text-success">{{$item->status}}</td>
-                                            @endif
+                                            <td>{{$item->user_id}}</td>
+                                            <td>{{$item->firstname}}</td>
+                                            <td>{{$item->lastname}}</td>
+                                            <td>{{$item->email}}</td>
+                                            <td>
+                                                <a href="{{route('user_details')}}?user={{$item->user_id}}">View Details</a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
