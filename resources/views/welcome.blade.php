@@ -41,6 +41,11 @@
                   {{Session::get('info')}}
                 </div>
                 @endif
+                @if(Session::get('out'))
+                <div class="alert alert-success">
+                  {{Session::get('out')}}
+                </div>
+                @endif
                 <form method="POST" action="{{route('do_login')}}" class="needs-validation" novalidate="">
                   @csrf
                   <div class="form-group">

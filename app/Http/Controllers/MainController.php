@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointments;
 use App\Models\User;
 use App\Traits\Generics;
 use Illuminate\Http\Request;
@@ -64,5 +65,48 @@ class MainController extends Controller
         } else {
             return redirect()->back()->with('infoEmail', 'Email address does not exist!, please check your credentials and try again.');
         }
+    }
+
+    public function book_appointment()
+    {
+        $user = ['loggedUser' => User::where('user_id', Auth::user()->user_id)->first()];
+        return view('/book_appointment')->with($user);
+    }
+    public function all_appointments()
+    {
+        $data = ['data'=>Appointments::where('user_id', Auth::user()->user_id)->paginate(5)];
+        return view('/all_appointments')->with($data);
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/')->with('out', "Logout was Successfull");
+    }
+
+    public function book_now(Request $req)
+    {
+        $req->validate([
+            'phone' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+            'details' => 'required',
+            'reschedule'=>'required'
+        ]);
+
+        Appointments::create([
+            'app_id' => $this->createUniqueRand('appointments', 'app_id'),
+            'user_id' => Auth::user()->user_id,
+            'firstname' => $req->firstname,
+            'lastname' => $req->lastname,
+            'email' => $req->email,
+            'phone' => $req->phone,
+            'date' => $req->date,
+            'time' => $req->time,
+            'details' => $req->details,
+            'reschedule' => $req->reschedule,
+        ]);
+
+        return back()->with('done', "Your appointment was sent successfully");
     }
 }
